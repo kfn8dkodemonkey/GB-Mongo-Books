@@ -39,5 +39,28 @@ module.exports = {
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
+    {
+      // The name of the plugin
+      resolve: 'gatsby-source-mongodb',
+      options: {
+        // Name of the database and collection where are books reside
+        dbName: 'Gatsby',
+        collection: 'Books',
+        server: {
+            address: '127.0.0.1',
+            port: 27017
+        },
+        /*auth: {
+            user: 'kodemonkey',
+            password: 'Tae4ohWu!'
+        },
+        extraParams: {
+            replicaSet: 'cluster0.8wbfxym.mo',
+            ssl: true,
+            authSource: 'admin',
+            retryWrites: true
+        }*/
+      }
+    },
   ],
 }
