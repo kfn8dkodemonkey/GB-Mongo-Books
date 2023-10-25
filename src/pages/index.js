@@ -5,11 +5,18 @@ import { graphql } from "gatsby"
 import Layout from "../components/layout"
 
 const IndexPage = (props) => {
-  const books = props.data.allMongodbGatsbyBooks.edges;
+  const books = props.data.books.edges;
+  const posts = props.data.posts.edges;
 
   return (
     <Layout>
-
+      <div className="posts">
+        {posts.map(post =>
+          <div className="post">
+            <h2><Link to={"/blog/" + post.node.frontmatter.slug}>{post.node.frontmatter.title}</Link></h2>
+            <p>By {post.node.frontmatter.author}</p>
+          </div>)}
+      </div>
       <div className="book-container">
       {books.map(book =>
             <div className="book">
@@ -30,7 +37,18 @@ export default IndexPage
 
 export const pageQuery = graphql`
   query {
-    allMongodbGatsbyBooks {
+    posts: allMarkdownRemark {
+      edges {
+        node {
+          frontmatter {
+            title
+            slug
+            author
+          }
+        }
+      }
+    }
+    books: allMongodbGatsbyBooks {
       edges {
         node {
           id
